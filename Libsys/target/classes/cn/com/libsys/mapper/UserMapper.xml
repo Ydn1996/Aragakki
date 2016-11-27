@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.libsys.mapper.UserMapper">
+	<resultMap id="user" type="cn.com.libsys.model.User">
+
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="level" jdbcType="TINYINT" property="level" />
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="cid" jdbcType="VARCHAR" property="cid" />
+		<result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+
+
+	</resultMap>
+
+	<insert id="insert" parameterType="User">  <!-- parameterType是传进来参数的类型 -->
+		insert into
+		user(id,username,password,level,createtime,cid,updatetime,uid)
+		values(#{id},#{username},#{password},#{level},#{createtime},#{cid},#{updatetime},#{uid})
+	</insert>
+
+</mapper>

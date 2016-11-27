@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.libsys.mapper.BookMapper">
+	<resultMap id="Books" type="cn.com.libsys.model.Books">
+
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="isbn" jdbcType="VARCHAR" property="isbn" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="price" jdbcType="VARCHAR" property="price" />
+		<result column="publish" jdbcType="VARCHAR" property="publish" />
+		<result column="authors" jdbcType="VARCHAR" property="authors" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+
+
+	</resultMap>
+
+	<insert id="insert" parameterType="Books">  <!-- parameterType是传进来参数的类型 -->
+		insert into
+		books(id,isbn,name,price,publish,authors,type)
+		values(#{id},#{isbn},#{name},#{price},#{publish},#{authors},#{type})
+	</insert>
+
+
+	<select id="findByParameterToPage" parameterType="Page"
+		resultType="Books">  <!--parameterType:传进去的type,resultType:传出来的type -->
+		select * from books
+		<where>
+			<if test="pageObject.id!=null and pageObject.id!=''">
+				and id=#{pageObject.id}
+			</if>
+			<if test="pageObject.isbn!=null and pageObject.isbn!=''">
+				and isbn = #{pageObject.isbn}
+			</if>
+			<if test="pageObject.name!=null and pageObject.name!=''">
+				and name like #{pageObject.name}
+			</if>
+			<if test="pageObject.price!=null and pageObject.price!=''">
+				and price = #{pageObject.price}
+			</if>
+			<if test="pageObject.publish!=null and pageObject.publish!=''">
+				and publish = #{pageObject.publish}
+			</if>
+			<if test="pageObject.authors!=null and pageObject.authors!=''">
+				and authors = #{pageObject.authors}
+			</if>
+			<if test="pageObject.type!=null and pageObject.type!=''">
+				and type = #{pageObject.type}
+			</if>
+		</where>
+		limit #{Before},#{size}
+	</select>
+
+	<select id="findByParameterToPages" parameterType="Page"
+		resultType="Integer">
+		select count(*) from books
+		<where>
+			<if test="pageObject.id!=null and pageObject.id!=''">
+				and id=#{pageObject.id}
+			</if>
+			<if test="pageObject.isbn!=null and pageObject.isbn!=''">
+				and isbn = #{pageObject.isbn}
+			</if>
+			<if test="pageObject.name!=null and pageObject.name!=''">
+				and name like #{pageObject.name}
+			</if>
+			<if test="pageObject.price!=null and pageObject.price!=''">
+				and price = #{pageObject.price}
+			</if>
+			<if test="pageObject.publish!=null and pageObject.publish!=''">
+				and publish = #{pageObject.publish}
+			</if>
+			<if test="pageObject.authors!=null and pageObject.authors!=''">
+				and authors = #{pageObject.authors}
+			</if>
+			<if test="pageObject.type!=null and pageObject.type!=''">
+				and type = #{pageObject.type}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="findByid" parameterType="String" resultType="Books">
+		select *
+		from books where id=#{id}
+	</select>
+
+	<delete id="delete" parameterType="String">
+		delete from books where
+		id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Books">
+		update books
+		<set>
+			<if test="isbn!=null and isbn!=''">
+				 isbn = #{isbn},
+			</if>
+			<if test="name!=null and name!=''">
+				 name = #{name},
+			</if>
+			<if test="price!=null and price!=''">
+				 price = #{price},
+			</if>
+			<if test="publish!=null and publish!=''">
+				 publish = #{publish},
+			</if>
+			<if test="authors!=null and authors!=''">
+				 authors = #{authors},
+			</if>
+			<if test="type!=null and type!=''">
+				 type = #{type},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+
+
+
+</mapper>
